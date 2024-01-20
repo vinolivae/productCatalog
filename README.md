@@ -1,4 +1,4 @@
 # productCatalog
 
 
-a simple product catalog made only with golang
+a simple product catalog made with golang and pq library
