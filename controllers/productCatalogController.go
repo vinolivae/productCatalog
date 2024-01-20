@@ -3,6 +3,7 @@ package controllers
 import (
 	m "go_projects/productCatalog/models"
 	"html/template"
+	"log"
 	"net/http"
 	"strconv"
 )
@@ -33,12 +34,16 @@ func CreateProduct(w http.ResponseWriter, r *http.Request) {
 		// O valor que vem do formulário é sempre uma string, precisamos fazer um parse para um tipo comum do go.
 		parsedPrice, err := strconv.ParseFloat(price, 64)
 		if err != nil {
-			panic(err.Error())
+			log.Println("Falha ao converter o preço", err)
+			http.Redirect(w, r, "/", 301)
+			return
 		}
 
 		parsedAmount, err := strconv.Atoi(amount)
 		if err != nil {
-			panic(err.Error())
+			log.Println("Falha ao converter a quantidade", err)
+			http.Redirect(w, r, "/", 301)
+			return
 		}
 
 		m.CreateProduct(name, description, parsedPrice, parsedAmount)
@@ -71,17 +76,23 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 
 		parsedId, err := strconv.Atoi(id)
 		if err != nil {
-			panic(err.Error())
+			log.Println("Falha ao converter o id", err)
+			http.Redirect(w, r, "/", 301)
+			return
 		}
 
 		parsedPrice, err := strconv.ParseFloat(price, 64)
 		if err != nil {
-			panic(err.Error())
+			log.Println("Falha ao converter o preço", err)
+			http.Redirect(w, r, "/", 301)
+			return
 		}
 
 		parsedAmount, err := strconv.Atoi(amount)
 		if err != nil {
-			panic(err.Error())
+			log.Println("Falha ao converter a quantidade", err)
+			http.Redirect(w, r, "/", 301)
+			return
 		}
 
 		m.UpdateProduct(parsedId, name, description, parsedPrice, parsedAmount)
