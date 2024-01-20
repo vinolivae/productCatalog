@@ -16,7 +16,7 @@ func ListProducts() []Product {
 	//define algo que será executado por ultimo, utilize para garantir a limpeza dos recursos.
 	defer db.Close()
 
-	allProducts, err := db.Query("select * from products_catalogs")
+	allProducts, err := db.Query("select * from products_catalogs order by id asc")
 	if err != nil {
 		panic(err.Error())
 	}
